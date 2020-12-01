@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>HRDepartment</title>
+</head>
+<body>
+<div class="container-fluid">
+    <!--Navigation Panel!-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+        <ul class="nav navbar-nav mr-auto" id="navigate" role="tablist">
+            <li class="nav-item active">
+                <a class="nav-link active" href="/mainpage">Домашняя <span class="sr-only">(current)</span></a>
+            </li>
+
+            <li class="nav-item dropdown">
+
+                <a class="nav-link dropdown-toggle"
+                   id="navbarDirectories"
+                   role="button"
+                   data-toggle="dropdown"
+                   aria-haspopup="true"
+                   aria-expanded="false">
+                    Справочники
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="navbarDirectories">
+
+                                <a class="nav-link dropdown-item"
+                                   id="branches"
+                                   data-toggle="tab"
+                                   href="#branchesTable"
+                                   aria-selected="false"
+                                   aria-controls="branchesTable"
+                                   role="tab">Филиалы</a>
+
+                            <a class="dropdown-item" href="#">Кандидаты</a>
+                            <a class="dropdown-item" href="#">Этапы по подбору</a>
+                            <a class="dropdown-item" href="#">Должности</a>
+                            <a class="dropdown-item" href="#">Подразделения</a>
+
+                </div>
+            </li>
+
+            <li class="nav-item dropdown">
+
+                <a class="nav-link dropdown-toggle"
+                   href="#"
+                   id="navbarPersonnelPlan"
+                   role="button"
+                   data-toggle="dropdown"
+                   aria-haspopup="true"
+                   aria-expanded="false">
+                    Кадровый план
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="navbarPersonnelPlan">
+
+                                <a class="nav-link dropdown-item"
+                                   id="pplan"
+                                   data-toggle="tab"
+                                   href="#personnelPlanTable"
+                                   aria-selected="false"
+                                   aria-controls="personnelPlanTable"
+                                   role="tab">Кадровый план</a>
+
+                            <a class="dropdown-item" href="#">Вакансия</a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarStaffRecruitment" role="button"
+                   data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Подбор персонала
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarStaffRecruitment">
+                    <a class="dropdown-item" href="#">Резюме</a>
+                    <a class="dropdown-item" href="#">Загрузка резюме</a>
+                    <a class="dropdown-item" href="#">Этапы работы с кандидатом</a>
+                    <a class="dropdown-item" href="#">Приём на работу кандидата</a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarReports" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Отчёты
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarReports">
+                    <a class="dropdown-item" href="#">Выполнение кадрового плана</a>
+                    <a class="dropdown-item" href="#">Состояние отбора кандидатов</a>
+                </div>
+            </li>
+        </ul>
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" href="/logout">Выйти</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="tab-content" id="myTabContent">
+        <!--Branches Table!-->
+        <div class="tab-pane fade"
+             id="branchesTable"
+             aria-labelledby="branches"
+             role="tabpanel">
+            <table class="table table-striped table-hover">
+                <h3 class="my-2 mx-2">Филиалы</h3>
+                <button type="button" class="btn btn-success mb-2 add"
+                        data-toggle="modal" data-target="#addModal">Добавить филиал
+                </button>
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Название</th>
+                    <th scope="col">ИНН</th>
+                    <th scope="col">КПП</th>
+                    <th scope="col">ОГРН</th>
+                    <th scope="col">Адрес</th>
+                    <th scope="col">Действие</th>
+                </tr>
+                </thead>
+                <tbody id="branchesList">
+                </tbody>
+            </table>
+        </div>
+
+        <!--ADD BRANCH MODAL!-->
+        <div class="modal fade" id="addModal" tabindex="-1"
+             role="dialog" aria-labelledby="addModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addModalLabel">Добавить филиал</h5>
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-label="Close">
+                            <span aria-hidden="true">x</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="newBranch">
+                            <div class="form-group">
+                                <label for="newName">Название</label>
+                                <input type="text" class="form-control" id="newName">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="newInn">ИНН</label>
+                                <input type="number" class="form-control" id="newInn">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="newKpp">КПП</label>
+                                <input type="number" class="form-control" id="newKpp">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="newOgrn">ОГРН</label>
+                                <input type="number" class="form-control" id="newOgrn">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="newAddress">Адрес</label>
+                                <input type="text" class="form-control" id="newAddress">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                        data-dismiss="modal">Отмена
+                                </button>
+
+                                <button type="submit" class="btn btn-primary addNew">
+                                    Добавить
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--DELETE BRANCH MODAL!-->
+        <div class="modal fade" tabindex="-1"
+             role="dialog" aria-labelledby="deleteModalLabel"
+             aria-hidden="true" id="deleteModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">
+                            Удалить Филиал?
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-label="Close">
+                            <span aria-hidden="true">x</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="deleteForm">
+
+                            <div class="form-group">
+                                <label for="delId">Id</label>
+                                <input type="number" name="delId"
+                                       class="form-control" id="delId"
+                                       readonly/>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="delName">Название</label>
+                                <input type="text" class="form-control"
+                                       id="delName" name="delName"
+                                       readonly>
+                            </div>
+
+                            <div>
+                                <button type="submit" class="btn btn-danger deleteButton" id="deleteUser">
+                                    Удалить
+                                </button>
+
+                                <button type="button" class="btn btn-primary"
+                                        data-dismiss="modal">
+                                    Отмена
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--Personnel Plan!-->
+        <div class="tab-pane fade"
+             id="personnelPlanTable"
+             aria-labelledby="pplan"
+             role="tabpanel">
+            <table class="table table-striped table-hover">
+                <h3 class="my-2 mx-2">Кадровый план</h3>
+                <button type="button"
+                        class="btn btn-success mb-2 addPlan"
+                        data-toggle="modal"
+                        data-target="#addPPlanModal">Добавить раздел
+                </button>
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Филиал</th>
+                    <th scope="col">Подразделение</th>
+                    <th scope="col">Должность</th>
+                    <th scope="col">Кол-во ставок</th>
+                    <th scope="col">Кол-во занятых ставок</th>
+                    <th scope="col">Действие</th>
+                </tr>
+                </thead>
+                <tbody id="personnelPlanList">
+                </tbody>
+            </table>
+        </div>
+
+        <!--ADD PPlan MODAL!-->
+        <div class="modal fade" id="addPPlanModal" tabindex="-1"
+             role="dialog" aria-labelledby="addModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addPPlan">Добавить раздел</h5>
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-label="Close">
+                            <span aria-hidden="true">x</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="newPP">
+                            <div class="form-group">
+                                <label for="newPPName">Филиал</label>
+                                <input type="text" class="form-control" id="newPPName">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="newPPSubdivision">Подразделение</label>
+                                <input type="number" class="form-control" id="newPPSubdivision">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="newPPPost">Должность</label>
+                                <input type="number" class="form-control" id="newPPPost">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="newPPAmount">Кол-во ставок</label>
+                                <input type="number" class="form-control" id="newPPAmount">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="newPPNumber">Кол-во занятых ставок</label>
+                                <input type="text" class="form-control" id="newPPNumber">
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                        data-dismiss="modal">Отмена
+                                </button>
+
+                                <button type="submit" class="btn btn-primary addNew">
+                                    Добавить
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script src="/js/main.js"></script>
+</body>
+</html>
